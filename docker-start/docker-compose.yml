@@ -1,0 +1,54 @@
+version: '2'
+services:
+    db:
+      image: mariadb:10.0
+      #command: --innodb-flush-method=fsync --innodb-use-native-aio=0
+      volumes:
+        - ../db/data:/var/lib/mysql
+        - ../db/conf:/etc/mysql/conf.d:cached
+      ports:
+        - "3306:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: 1234
+        MYSQL_DATABASE: symfony
+        MYSQL_USER: dbuser
+        MYSQL_PASSWORD: 1234
+    php:
+      build: 
+        context: php7-fpm
+        args:
+          TIMEZONE: Europe/Madrid
+      ports:
+        - "9000:9000"
+        - "2022:22"
+      volumes:
+        - ../symfony4:/var/www/symfony:cached
+        - ../logs/symfony:/var/www/symfony/var/log:cached
+      links:
+        - db
+    adminer:
+      image: adminer
+      restart: on-failure
+      ports:
+        - 8080:8080
+    nginx:
+      build: nginx
+      ports:
+        - "8000:80"
+        - "8083:443"
+      links:
+        - php
+      volumes_from:
+        - php
+      volumes:
+        - ../logs/nginx/:/var/log/nginx:cached
+    elk:
+      image: willdurand/elk
+      ports:
+        - "8081:80"
+      volumes:
+        - ../elk/logstash:/etc/logstash:cached
+        - ../elk/logstash/patterns:/opt/logstash/patterns:cached
+      volumes_from:
+        - php
+        - nginx

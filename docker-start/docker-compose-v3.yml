@@ -1,0 +1,70 @@
+version: '3'
+services:
+    db:
+      image: mariadb:10.0
+      volumes:
+        - ../db/data:/var/lib/mysql
+        - ../db/conf:/etc/mysql/conf.d:cached
+      ports:
+        - "3306:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    php:
+      build: 
+        context: php7-fpm
+        args:
+          TIMEZONE: ${TIMEZONE}
+      ports:
+        - "9000:9000"
+        - "2022:22"
+      volumes:
+#        - ../symfony:/var/www/symfony:cached
+#        - ${SYMFONY_APP_PATH}:/var/www/symfony
+#        - ../logs/symfony:/var/www/symfony/var/logs:cached
+        - sfapp:/var/www/symfony:rw
+        - sflogs:/var/www/symfony/var/logs:cached
+      links:
+        - db
+    adminer:
+      image: adminer
+      restart: on-failure
+      ports:
+        - 8080:8080
+    nginx:
+      build: nginx
+      ports:
+        - "8000:80"
+        - "8083:443"
+      links:
+        - php
+      volumes_from:
+        - php
+      volumes:
+#        - ../logs/nginx/:/var/log/nginx:cached
+        - ngixlogs:/var/log/nginx:cached
+    elk:
+      image: willdurand/elk
+      ports:
+        - "8081:80"
+      volumes:
+        - ../elk/logstash:/etc/logstash:cached
+        - ../elk/logstash/patterns:/opt/logstash/patterns:cached
+#      volumes_from:
+#        - php
+#        - nginx
+volumes:
+  sfapp:
+    driver: local
+    driver_opts:
+      device: ../symfony
+  sflogs:
+    driver: local
+    driver_opts:
+      device: ../logs/symfony
+  ngixlogs:
+    driver: local
+    driver_opts:
+      device: ../logs/nginx/

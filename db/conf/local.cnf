@@ -1,0 +1,4 @@
+[mysqld]
+innodb_use_native_aio=off
+innodb_flush_method=O_DSYNC
+#innodb-flush-method=fsync
