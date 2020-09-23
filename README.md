@@ -17,6 +17,21 @@ docker-symfony
 
 Directorio de Ejecución de Scripts __docer-star__
 
+El Archivo .env se pueden moficiar los valores de las variables para ajustarlos a tu entorno
+```ini 
+# Symfony application's path (absolute or relative)
+SYMFONY_APP_PATH=../symfony
+
+# MySQL
+MYSQL_ROOT_PASSWORD=1234
+MYSQL_DATABASE=symfony
+MYSQL_USER=user
+MYSQL_PASSWORD=1234
+
+# Timezone
+TIMEZONE=Europe/Madrid
+```
+
 Primero Revisar el script __docker-start/vars.sh__ dentro se encuentran valores como 
 
 ```bash
