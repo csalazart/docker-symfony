@@ -17,7 +17,7 @@ docker-symfony
 
 Directorio de Ejecución de Scripts __docer-star__
 
-El Archivo .env se pueden moficiar los valores de las variables para ajustarlos a tu entorno
+El Archivo **.env** se pueden modificar los valores de las variables para ajustarlos a tu entorno
 ```ini 
 # Symfony application's path (absolute or relative)
 SYMFONY_APP_PATH=../symfony
