@@ -33,5 +33,5 @@ printDockerMachineInfo
 
 # Start docker-compose
 echo -e "Run docker-compose..."
-"${DOCKER_COMPOSE}" -p "$PROJECT_NAME" --env-file="$DOCKER_DIR/.env" -f "$DOCKER_DIR/docker-compose.yml" up "$@"
+"${DOCKER_COMPOSE}" -p "$PROJECT_NAME" -f "$DOCKER_DIR/docker-compose.yml" up "$@"
 echo -e "Docker Machine ${VM_NAME} y Los Contentedores estan Activos...\n"
