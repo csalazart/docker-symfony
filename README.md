@@ -1,5 +1,10 @@
 docker-symfony
 ==============
+# PREVIO
+ Este Repo Esta adaptado para usarse con DockerToolBox y virtualBox una antigua Forma de Utilizar Docker con Windows. Para ordenadores o Windows Antiguos que no posean virual Machine, o Maquina Virtual activo en windows y sin WSL. es una Forma mas lenta de uar Docker y consume mucha mas memoria que el actual Docker Windows native.
+ 
+ # OVERVIEW
+  this Repo is for a all Windows Machines sistem and use on DockerToolBox & VirtualBox a ald Form to emulate and use Docker, systems that, not use WSL and virutal Machine platform windows. This is a slow mode, pero efective but its suck much more memory that the actual Docker Native Windows.
 
 # Requisitos y Contenedores version
 
