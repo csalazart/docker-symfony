@@ -109,5 +109,5 @@ You can also use Kibana to visualize Nginx & Symfony logs by visiting `http://do
 
 
 ### Author:
-- Carlos A Salazar <csalazart>
+- Koreander
 - ["GitHub"](https://github.com/csalazart)
